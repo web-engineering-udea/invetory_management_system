@@ -52,9 +52,13 @@ td {
 }
 
 button.primary {
-    @apply bg-indigo-500 text-white px-3 py-2 rounded-lg hover:bg-indigo-700 shadow-md disabled:bg-gray-300;
+    @apply bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-700 shadow-md disabled:bg-gray-300;
 }
 
 button.secondary {
     @apply bg-gray-500 text-white px-3 py-2 rounded-lg hover:bg-gray-700 shadow-md disabled:bg-gray-300;
+}
+
+span.sidebar {
+    @apply text-white font-semibold mx-auto;
 }

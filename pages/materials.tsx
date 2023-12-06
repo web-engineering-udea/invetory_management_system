@@ -1,7 +1,5 @@
-import PageStructure from "@/components/PageStructure";
-
 const MaterialsPage = () => {
-  return <PageStructure />;
+  return <div></div>;
 };
 
 export default MaterialsPage;

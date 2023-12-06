@@ -15,7 +15,9 @@ const Layout = ({ children }: LayoutProps) => {
     return (
       <main className='flex flex-row'>
         <LeftSideBar />
-        {children}
+        <div className='w-full overflow-y-auto'>
+          {children}
+        </div>
         <ToastContainer />
       </main>
     );

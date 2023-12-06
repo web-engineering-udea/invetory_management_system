@@ -1,7 +1,5 @@
-import PageStructure from "@/components/PageStructure";
-
 const InventoryPage = () => {
-  return <PageStructure />;
+  return <div></div>;
 };
 
 export default InventoryPage;

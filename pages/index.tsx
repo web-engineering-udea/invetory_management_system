@@ -2,6 +2,7 @@ import { PrivateComponent } from '@/components/PrivateComponent';
 import { PrimaryButton } from '@/components/ui/Buttons';
 import { NavigationCard } from '@/components/ui/NavigationCard';
 import { useSession, signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 const Home = () => {
   const { status } = useSession();
@@ -9,24 +10,12 @@ const Home = () => {
     <main className='flex flex-col h-screen w-full items-center justify-center gap-4'>
       <h1>Sistema de Gestión de Inventarios</h1>
       {status === 'authenticated' ? (
-        <div className='flex gap-4'>
-          <NavigationCard
-            title='Materiales'
-            description='Crear y visualizar materiales'
-            href='/materials'
-          />
-          <NavigationCard
-            title='Inventario'
-            description='Crear y visualizar registro de inventario'
-            href='/inventory'
-          />
-          <PrivateComponent roleName='ADMIN'>
-            <NavigationCard
-              title='Usuarios'
-              description='Gestionar los usuarios de la plataforma'
-              href='/users'
-            />
-          </PrivateComponent>
+        <div>
+          <Link href='/inventory'>
+            <button className='primary'>
+              Inventario
+            </button>
+          </Link>
         </div>
       ) : (
         <div>
