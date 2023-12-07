@@ -1,6 +1,4 @@
-import { PrivateComponent } from '@/components/PrivateComponent';
 import { PrimaryButton } from '@/components/ui/Buttons';
-import { NavigationCard } from '@/components/ui/NavigationCard';
 import { useSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 

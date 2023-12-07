@@ -1,4 +1,4 @@
-import LeftSideBar from '@/components/ui/LeftSideBar';
+import { LeftSideBar } from '@/components/ui/LeftSideBar';
 import { useSession } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 

@@ -39,7 +39,6 @@ const UsersPage = () => {
               <th>Fecha de creación</th>
               <th>Correo</th>
               <th>Rol</th>
-              {/* <th>Acciones</th> */}
             </tr>
           </thead>
           <tbody>
@@ -52,9 +51,6 @@ const UsersPage = () => {
                   <td>
                     {roles?.find((el) => el.id === user.roleId)?.name ?? ''}
                   </td>
-                  {/* <td>
-                    <UserActions user={user} />
-                  </td> */}
                 </tr>
               );
             })}

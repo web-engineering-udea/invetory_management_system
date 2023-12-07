@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, SyntheticEvent, useState } from 'react';
 import { useGetRoles } from '@/hooks/useGetRoles';
 import { refetchUsers, useGetUsers } from '@/hooks/useGetUsers';
-import { useSession } from 'next-auth/react';
 import { Dialog } from '@/components/ui/Dialog';
 import { PrimaryButton, SecondaryButton } from '@/components/ui/Buttons';
 import axios from 'axios';
@@ -14,17 +13,13 @@ interface EditUserDialogInterface {
 }
 
 const EditUserDialog = ({ open, setOpen }: EditUserDialogInterface) => {
-  const { data } = useSession();
   const { roles, rolesLoading } = useGetRoles();
-  const { users, usersError, usersLoading } = useGetUsers();
+  const { users, usersLoading } = useGetUsers();
   const [userInformation, setUserInformation] = useState({
     id: '',
-    email: '', //data?.user.email ||
-    roleId: '', //data?.user?.role?.name ||
+    email: '',
+    roleId: '',
   });
-  console.log("data", data);
-  console.log("users", users);
-  console.log("userInfo", userInformation);
 
   const [editLoading, setEditLoading] = useState(false);
 
@@ -64,13 +59,10 @@ const EditUserDialog = ({ open, setOpen }: EditUserDialogInterface) => {
             value={userInformation.id}
             onChange={(e) => {
                 const idToFind = e.target.value;
-                console.log(idToFind);
                 // Check if users array is defined
                 if (users) {
                   // Find the user with th  e specified email
                   const foundUser = users.find((user) => user.id === idToFind);
-                  console.log(foundUser?.email);
-                  console.log("roleId", foundUser?.roleId);
                   setUserInformation({
                     id: idToFind,
                     email: foundUser?.email || '',

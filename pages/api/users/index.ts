@@ -26,19 +26,6 @@ export default async function handler(
       return res.status(200).json({ users });
     }
 
-    // if (req.method === 'POST') {
-    //   const { email, name, roleId } = req.body;
-
-    //   const newUser = await prisma.user.create({
-    //     data: {
-    //       name,
-    //       email,
-    //       roleId,
-    //     },
-    //   });
-
-    //   return res.status(201).json({ newUser });
-    // }
     return res.status(405).json({ message: 'Method not allowed' });
   } catch {
     return res.status(500).json({ message: 'Internal server error' });

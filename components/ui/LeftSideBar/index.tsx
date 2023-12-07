@@ -49,4 +49,4 @@ const SidebarLink = ({ href, title }: SidebarLinkProps) => {
   );
 };
 
-export default LeftSideBar;
+export { LeftSideBar };
