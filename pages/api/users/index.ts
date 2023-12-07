@@ -7,7 +7,6 @@ import { checkProtectedApi } from '@/utils/checkServerSession';
 type Data = {
   users?: User[];
   message?: string;
-  newUser?: User;
 };
 
 export default async function handler(

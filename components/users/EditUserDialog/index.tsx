@@ -88,7 +88,6 @@ const EditUserDialog = ({ open, setOpen }: EditUserDialogInterface) => {
           <select
             name='user-role'
             required
-            defaultValue={userInformation.roleId || ''}
             value={userInformation.roleId || ''}
             onChange={(e) => {
               setUserInformation({

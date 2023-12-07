@@ -1,4 +1,4 @@
-import { Role, User } from '@prisma/client';
+import { Material, Role, User } from '@prisma/client';
 
 export interface UsersQuery {
   users: User[];
@@ -8,4 +8,6 @@ export interface RolesQuery {
   roles: Role[];
 }
 
-// export { User };
+export interface MaterialsQuery {
+  materials: Material[];
+}
