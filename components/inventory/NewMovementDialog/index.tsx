@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, SyntheticEvent, useEffect, useState } from 'r
 import { useGetUsers } from '@/hooks/useGetUsers';
 import { Dialog } from '@/components/ui/Dialog';
 import { PrimaryButton, SecondaryButton } from '@/components/ui/Buttons';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { API_ROUTES } from '@/service/apiConfig';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
@@ -31,16 +31,13 @@ const NewMovementDialog = ({ open, setOpen, material }: NewMovementDialogInterfa
     // Check if both users and material are available
     if (users && material && data) {
       // Update movementInformation
-      setMovementInformation({
-        ...movementInformation,
+        setMovementInformation((prevMovementInfo) => ({
+        ...prevMovementInfo,
         materialId: material.id,
         userId: users.find((user) => user.email === data?.user.email)?.id || '',
-      });
+        }));
     }
   }, [users, material, data]);
-
-  console.log('materialbS', material.id);
-  console.log('submit', movementInformation);
 
   const [createLoading, setCreateLoading] = useState(false);
 
@@ -60,10 +57,7 @@ const NewMovementDialog = ({ open, setOpen, material }: NewMovementDialogInterfa
       toast.success('Movimiento creado correctamente');
       setOpen(false);
     } catch (e: unknown) {
-      const error = e as AxiosError;
-
-      const errorData = error?.response?.data as { message: string };
-      toast.error('Error creando el movimiento');
+      toast.error('Error creando el mo');
     }
     setCreateLoading(false);
   };

@@ -70,8 +70,6 @@ const NewMaterialDialog = ({ open, setOpen }: NewMaterialDialogInterface) => {
       }
     }
 
-    console.log('response', response);
-    
     try {
       await axios.request({
         method: 'POST',
@@ -87,9 +85,6 @@ const NewMaterialDialog = ({ open, setOpen }: NewMaterialDialogInterface) => {
       toast.success('Movimiento creado correctamente');
       setOpen(false);
     } catch (e: unknown) {
-      const error = e as AxiosError;
-
-      const errorData = error?.response?.data as { message: string };
       toast.error('Error creando el movimiento');
     }
 

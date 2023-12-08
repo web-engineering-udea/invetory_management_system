@@ -29,7 +29,7 @@ const getBalance = (inventorys: getBalanceInterface[]) => {
   const entradaSum = inventorys
     .filter((movement) => movement.movementType === 'ENTRADA')
     .reduce(
-      (sum: any, movement: { quantity: any }) => sum + movement.quantity,
+      (sum, movement: { quantity: number }) => sum + movement.quantity,
       0
     );
 
@@ -38,7 +38,7 @@ const getBalance = (inventorys: getBalanceInterface[]) => {
       (movement: { movementType: string }) => movement.movementType === 'SALIDA'
     )
     .reduce(
-      (sum: any, movement: { quantity: any }) => sum + movement.quantity,
+      (sum, movement: { quantity: number }) => sum + movement.quantity,
       0
     );
 
@@ -49,7 +49,6 @@ const InventorysPage = () => {
   const { users, usersError, usersLoading } = useGetUsers();
   const { materials, materialsError, materialsLoading } = useGetMaterials();
   const { inventorys, inventorysError, inventorysLoading } = useGetInventorys();
-  console.log('check', inventorys);
   const [filteredInventorys, setFilteredInventorys] = useState(inventorys);
   const [openDialog, setOpenDialog] = useState(false);
   const [materialInformation, setMaterialInformation] = useState({
@@ -57,13 +56,13 @@ const InventorysPage = () => {
     name: '',
   });
   useEffect(() => {
-    console.log('inventory change!')    
-    setFilteredInventorys(inventorys?.filter((inventory) => inventory.materialId === materialInformation.id));
-  }, [inventorys]);
-  console.log('check1', filteredInventorys)
-  console.log('inventorys', inventorys);
-  console.log('filtered', filteredInventorys);
-  console.log('material select', materialInformation);  
+    setFilteredInventorys(
+      (prevFilteredInventorys) =>
+        inventorys?.filter(
+          (inventory) => inventory.materialId === materialInformation.id
+        ) || prevFilteredInventorys
+    );
+  }, [inventorys, materialInformation.id]);
 
   if (inventorysLoading || materialsLoading || usersLoading) return <div>Loading...</div>;
 

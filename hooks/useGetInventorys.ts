@@ -11,7 +11,7 @@ const useGetInventorys = () => {
     API_ROUTES.inventorys,
     fetcher
   );
-    console.log(data);
+
   return {
     inventorys: data?.inventoryMovements,
     inventorysLoading: isLoading,
