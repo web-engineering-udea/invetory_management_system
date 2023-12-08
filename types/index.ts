@@ -15,3 +15,11 @@ export interface MaterialsQuery {
 export interface InventorysQuery {
   inventoryMovements: InventoryMovement[];
 }
+
+export interface BalanceQuery {
+  indicators: {
+    date: string,
+    name: string,
+    quantity: number,
+  }[];
+}

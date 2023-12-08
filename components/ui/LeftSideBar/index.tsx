@@ -8,7 +8,7 @@ const LeftSideBar = () => {
   const { data } = useSession();
 
   return (
-    <aside className='flex flex-col items-center mx-auto h-screen w-60 bg-blue-500'>
+    <aside className='flex flex-col items-center mx-auto w-60 bg-blue-500 '>
       <section className='flex flex-col items-center m-10'>
         <UserProfileImage image={data?.user.image || ''} />
         <span className='sidebar'>{data?.user.name || ''}</span>

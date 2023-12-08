@@ -19,6 +19,8 @@
     "@prisma/client": "^5.6.0",
     "@supabase/supabase-js": "^2.39.0",
     "axios": "^1.6.2",
+    "devextreme": "23.1.6",
+    "devextreme-react": "23.1.6",
     "next": "13.5.6",
     "next-auth": "^4.24.5",
     "react": "^18",

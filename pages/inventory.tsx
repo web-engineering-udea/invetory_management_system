@@ -7,6 +7,19 @@ import { useGetMaterials } from '@/hooks/useGetMaterials';
 import { NewMovementDialog } from '@/components/inventory/NewMovementDialog';
 import { toast } from 'react-toastify';
 import { $Enums } from '@prisma/client';
+import { useGetBalance } from '@/hooks/useGetBalance';
+import {
+  Chart,
+  Series,
+  ArgumentAxis,
+  CommonSeriesSettings,
+  Export,
+  Legend,
+  Margin,
+  Title,
+  Tooltip,
+  Grid,
+} from 'devextreme-react/chart';
 
 const InventorysPageWrapper = () => {
   return (
@@ -55,6 +68,7 @@ const InventorysPage = () => {
     id: '',
     name: '',
   });
+  const { indicators, isLoading, error} = useGetBalance(materialInformation.id);
   useEffect(() => {
     setFilteredInventorys(
       (prevFilteredInventorys) =>
@@ -64,9 +78,10 @@ const InventorysPage = () => {
     );
   }, [inventorys, materialInformation.id]);
 
-  if (inventorysLoading || materialsLoading || usersLoading) return <div>Loading...</div>;
+  if (isLoading || inventorysLoading || materialsLoading || usersLoading)
+    return <div>Loading...</div>;
 
-  if (inventorysError || materialsError || usersError)
+  if (error || inventorysError || materialsError || usersError)
     return <div>Error al cargar los datos</div>;
 
   return (
@@ -159,6 +174,35 @@ const InventorysPage = () => {
             </table>
             <div>
               <span>Saldo : {getBalance(filteredInventorys || [])}</span>
+            </div>
+            <div className='flex justify-center p-10'>
+              <Chart width={'80%'} palette='Violet' dataSource={indicators}>
+                <CommonSeriesSettings argumentField='date' type='line' />
+                  <Series
+                    key={'quantity'}
+                    valueField={'quantity'}
+                    name={materialInformation.name}
+                  />
+                <Margin bottom={20} />
+                <ArgumentAxis
+                  valueMarginsEnabled={false}
+                  discreteAxisDivisionMode='crossLabels'
+                >
+                  <Grid visible={true} />
+                </ArgumentAxis>
+                <Legend
+                  verticalAlignment='bottom'
+                  horizontalAlignment='center'
+                  itemTextPosition='bottom'
+                />
+                <Export enabled={true} />
+                <Title text='Saldos de material por dia'></Title>
+                <Tooltip
+                  enabled={true}
+                  shared={true}
+                  // customizeTooltip={customizeTooltip}
+                />
+              </Chart>
             </div>
           </div>
         ) : (
