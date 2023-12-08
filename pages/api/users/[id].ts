@@ -30,16 +30,20 @@ const userApi = async (
     return res.status(200).json({ user: updatedUser });
   }
 
-  if (req.method === 'DELETE') {
+  if (req.method === 'GET') {
     const userId = req.query.id as string;
 
-    await prisma.user.delete({
+    const uniqueUser = await prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
-
-    return res.status(200).json({ message: 'User deleted' });
+    
+    if (uniqueUser !== null) {
+      return res.status(200).json({ user: uniqueUser });
+    } else {
+      return res.status(404).json({ message: 'User not found' });
+    }
   }
 
   return res.status(405).json({ message: 'Method not allowed' });

@@ -9,7 +9,7 @@ const LeftSideBar = () => {
 
   return (
     <aside className='flex flex-col items-center mx-auto h-screen w-60 bg-blue-500'>
-      <section className='m-10'>
+      <section className='flex flex-col items-center m-10'>
         <UserProfileImage image={data?.user.image || ''} />
         <span className='sidebar'>{data?.user.name || ''}</span>
       </section>
