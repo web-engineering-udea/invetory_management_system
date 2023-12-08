@@ -80,7 +80,7 @@ const EditUserDialog = ({ open, setOpen }: EditUserDialogInterface) => {
               );
             })}
           </select>
-        </label>
+        </label>  
         <label htmlFor='user-role'>
           <span>
             Rol <span className='text-red-500'>*</span>

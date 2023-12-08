@@ -7,6 +7,7 @@ import { API_ROUTES } from '@/service/apiConfig';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { refetchMaterials } from '@/hooks/useGetMaterials';
+import { refetchInventorys } from '@/hooks/useGetInventorys';
 
 interface NewMaterialDialogInterface {
   open: boolean;
@@ -21,15 +22,29 @@ const NewMaterialDialog = ({ open, setOpen }: NewMaterialDialogInterface) => {
     quantity: 0,
     userId: users?.find((user) => user.email === data?.user.email)?.id,
   });
+  // const [movementInformation, setMovementInformation] = useState({
+  //   movementType: 'ENTRADA',
+  //   quantity: 0,
+  //   materialId: '',
+  //   userId: users?.find((user) => user.email === data?.user.email)?.id,
+  // });
+
 
   const [createLoading, setCreateLoading] = useState(false);
 
   const createMaterial = async (e: SyntheticEvent) => {
     e.preventDefault();
     setCreateLoading(true);
-
+    
+    let response = {data: {
+      newMaterial: {
+        id: '',
+        userId: '',
+        quantity: 0,
+      }
+    }};
     try {
-      await axios.request({
+        response = await axios.request({
         method: 'POST',
         url: API_ROUTES.materials,
         data: {
@@ -54,6 +69,30 @@ const NewMaterialDialog = ({ open, setOpen }: NewMaterialDialogInterface) => {
         toast.error('Error creando el material');
       }
     }
+
+    console.log('response', response);
+    
+    try {
+      await axios.request({
+        method: 'POST',
+        url: API_ROUTES.inventorys,
+        data: {
+          movementType: 'ENTRADA',
+          quantity: response.data.newMaterial.quantity,
+          materialId: response.data.newMaterial.id,
+          userId: response.data.newMaterial.userId,
+        },
+      });
+      await refetchInventorys();
+      toast.success('Movimiento creado correctamente');
+      setOpen(false);
+    } catch (e: unknown) {
+      const error = e as AxiosError;
+
+      const errorData = error?.response?.data as { message: string };
+      toast.error('Error creando el movimiento');
+    }
+
     setCreateLoading(false);
   };
 
@@ -116,4 +155,3 @@ const NewMaterialDialog = ({ open, setOpen }: NewMaterialDialogInterface) => {
 };
 
 export { NewMaterialDialog };
-

@@ -4,6 +4,7 @@ const API_ROUTES = {
   users: `${SERVER_URL}/users`,
   roles: `${SERVER_URL}/roles`,
   materials: `${SERVER_URL}/materials`,
+  inventorys: `${SERVER_URL}/inventorys`,
 };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
