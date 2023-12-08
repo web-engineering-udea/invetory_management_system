@@ -1,6 +1,10 @@
 import { API_ROUTES, fetcher } from '@/service/apiConfig';
 import { BalanceQuery } from '@/types';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
+
+const refetchBalance = async (materialId: string) => {
+  await mutate(`${API_ROUTES.inventorys}/${materialId}`);
+};
 
 const useGetBalance = (materialId: string) => {
   const { data, isLoading, error } = useSWR<BalanceQuery>(
@@ -15,4 +19,4 @@ const useGetBalance = (materialId: string) => {
   };
 };
 
-export { useGetBalance };
+export { useGetBalance, refetchBalance };

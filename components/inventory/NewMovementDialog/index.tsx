@@ -7,6 +7,7 @@ import { API_ROUTES } from '@/service/apiConfig';
 import { toast } from 'react-toastify';
 import { useSession } from 'next-auth/react';
 import { refetchInventorys } from '@/hooks/useGetInventorys';
+import { refetchBalance } from '@/hooks/useGetBalance';
 
 interface NewMovementDialogInterface {
   open: boolean;
@@ -54,6 +55,7 @@ const NewMovementDialog = ({ open, setOpen, material }: NewMovementDialogInterfa
         },
       });
       await refetchInventorys();
+      await refetchBalance(movementInformation.materialId);
       toast.success('Movimiento creado correctamente');
       setOpen(false);
     } catch (e: unknown) {

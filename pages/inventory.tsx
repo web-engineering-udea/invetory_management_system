@@ -95,7 +95,6 @@ const InventorysPage = () => {
             name='material'
             required
             defaultValue={'Seleccione un material'}
-            // value={userInformation.id}
             onChange={(e) => {
               setFilteredInventorys(
                 inventorys?.filter(
@@ -150,7 +149,6 @@ const InventorysPage = () => {
                     <tr key={inventory.id}>
                       <td>{inventory.id}</td>
                       <td>{inventory.createdAt.toString()}</td>
-                      {/* <td>{materials?.find((material) => material.id ===  inventory.materialId)?.name}</td> */}
                       {inventory.movementType === 'ENTRADA' ? (
                         <td>{inventory.quantity}</td>
                       ) : (
@@ -200,7 +198,6 @@ const InventorysPage = () => {
                 <Tooltip
                   enabled={true}
                   shared={true}
-                  // customizeTooltip={customizeTooltip}
                 />
               </Chart>
             </div>

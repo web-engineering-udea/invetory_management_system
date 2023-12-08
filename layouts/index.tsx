@@ -13,9 +13,9 @@ const Layout = ({ children }: LayoutProps) => {
 
   if (status === 'authenticated')
     return (
-      <main className='flex flex-row'>
+      <main className='flex'>
         <LeftSideBar />
-        <div className='w-full overflow-y-auto'>
+        <div className='w-full ml-60'>
           {children}
         </div>
         <ToastContainer />
