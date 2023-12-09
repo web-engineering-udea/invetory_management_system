@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, SyntheticEvent, useEffect, useState } from 'react';
-import { useGetUsers } from '@/hooks/useGetUsers';
 import { Dialog } from '@/components/ui/Dialog';
 import { PrimaryButton, SecondaryButton } from '@/components/ui/Buttons';
 import axios from 'axios';
@@ -20,25 +19,23 @@ interface NewMovementDialogInterface {
 
 const NewMovementDialog = ({ open, setOpen, material }: NewMovementDialogInterface) => {
   const { data } = useSession();
-  const { users } = useGetUsers();
   const [movementInformation, setMovementInformation] = useState({
     movementType: '',
     quantity: 0,
     materialId: material.id,
-    userId: users?.find((user) => user.email === data?.user.email)?.id,
+    userId: data?.user.id,
   });
 
   useEffect(() => {
     // Check if both users and material are available
-    if (users && material && data) {
+    if (material && data) {
       // Update movementInformation
         setMovementInformation((prevMovementInfo) => ({
         ...prevMovementInfo,
         materialId: material.id,
-        userId: users.find((user) => user.email === data?.user.email)?.id || '',
         }));
     }
-  }, [users, material, data]);
+  }, [material, data]);
 
   const [createLoading, setCreateLoading] = useState(false);
 
@@ -59,7 +56,7 @@ const NewMovementDialog = ({ open, setOpen, material }: NewMovementDialogInterfa
       toast.success('Movimiento creado correctamente');
       setOpen(false);
     } catch (e: unknown) {
-      toast.error('Error creando el mo');
+      toast.error('Error creando el movimiento  ');
     }
     setCreateLoading(false);
   };
